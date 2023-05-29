@@ -3,10 +3,10 @@ import HTTPError from './http-error';
 
 /**
  *
- * @param {RequestInfo} input
- * @param {RequestInit} [init]
+ * @param input
+ * @param init
  */
-async function getJSON(input, init) {
+async function getJSON(input: RequestInfo, init?: RequestInit) {
   try {
     const response = await fetch(input, init);
     const responseJSON = await response.json();
@@ -17,7 +17,7 @@ async function getJSON(input, init) {
         `Networking/getJSON: An error was encountered while fetching ${JSON.stringify(
           input,
         )}`,
-        err,
+        err as Error,
       ),
     );
   }
@@ -25,10 +25,10 @@ async function getJSON(input, init) {
 
 /**
  *
- * @param {string} path
- * @param {RequestInit} [init]
+ * @param path
+ * @param init
  */
-export async function apiCall(path, init) {
+export async function apiCall(path: string, init?: RequestInit) {
   let response;
   let json;
   try {
@@ -40,7 +40,7 @@ export async function apiCall(path, init) {
     throw new Error(
       stringifyError(
         `Networking/apiCall: An error was encountered while making api call to ${path}`,
-        err,
+        err as Error,
       ),
     );
   }
